@@ -21,10 +21,9 @@ namespace MasterPolSalimgareeva
             this.ProductMaterial = new HashSet<ProductMaterial>();
         }
     
-        public int ProductID { get; set; }
+        public string ProductArticul { get; set; }
         public int ProductTypeID { get; set; }
         public string ProductName { get; set; }
-        public string ProductArticul { get; set; }
         public decimal ProductMinimalCostForPartner { get; set; }
         public string ProductDescription { get; set; }
         public string ProductImage { get; set; }

@@ -11,8 +11,7 @@ namespace MasterPolSalimgareeva
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     public partial class Partners
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,33 +30,7 @@ namespace MasterPolSalimgareeva
         public string PartnerINN { get; set; }
         public int PartnerRating { get; set; }
         public string PartnerLogo { get; set; }
-
-
-        public int PartnerDiscount
-        {
-            get
-            {
-                int salesCount = 0;
-                foreach (var order in SalimgareevaMasterPolEntities.GetContext().Orders.Where(p => p.PartnerID == this.PartnerID))
-                {
-                    salesCount += order.OrderProductQuantity;
-                }
-                
-                if (salesCount < 10000) 
-                    return 0;
-                if (salesCount < 50000) 
-                    return 5;
-                if (salesCount < 300000) 
-                    return 10;
-                return 15;
-                
-
-            }
-        }
     
-        
-
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         public virtual PartnerType PartnerType { get; set; }

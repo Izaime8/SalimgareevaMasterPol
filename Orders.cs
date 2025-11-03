@@ -15,12 +15,12 @@ namespace MasterPolSalimgareeva
     public partial class Orders
     {
         public int OrderID { get; set; }
-        public int ProductID { get; set; }
+        public string ProductArticul { get; set; }
         public int PartnerID { get; set; }
         public int OrderProductQuantity { get; set; }
         public System.DateTime OrderSaleDate { get; set; }
     
-        public virtual Partners Partners { get; set; }
         public virtual Products Products { get; set; }
+        public virtual Partners Partners { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace MasterPolSalimgareeva
         private static SalimgareevaMasterPolEntities _context;
         public static SalimgareevaMasterPolEntities GetContext()
         {
-            if ( _context == null )
+            if (_context == null)
                 _context = new SalimgareevaMasterPolEntities();
             return _context;
         }

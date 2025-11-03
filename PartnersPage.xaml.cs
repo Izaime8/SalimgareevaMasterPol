@@ -33,5 +33,26 @@ namespace MasterPolSalimgareeva
 
             PartnersListView.ItemsSource = Partners;
         }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            SalimgareevaMasterPolEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(q => q.Reload());
+            UpdatePartners();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Partners));
+        }
+
+        private void ViewHistotyButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage(null));
+        }
     }
 }

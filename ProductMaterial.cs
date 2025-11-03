@@ -14,7 +14,7 @@ namespace MasterPolSalimgareeva
     
     public partial class ProductMaterial
     {
-        public int ProductID { get; set; }
+        public string ProductArticul { get; set; }
         public int MaterialID { get; set; }
         public string Description { get; set; }
     

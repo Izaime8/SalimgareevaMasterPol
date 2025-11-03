@@ -1,0 +1,59 @@
+﻿<Page x:Class="MasterPolSalimgareeva.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MasterPolSalimgareeva"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditPage" FontFamily="Segoe UI" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="ID" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="0" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock Text="Наименование" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="1" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock Text="Тип партнера" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock Text="Рейтинг" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="3" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock Text="Адрес" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="4" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock Text="ФИО директора" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="1" Grid.Column="2" Margin="10"></TextBlock>
+        <TextBlock Text="Телефон" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="2" Grid.Column="2" Margin="10"></TextBlock>
+        <TextBlock Text="E-mail" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="3" Grid.Column="2" Margin="10"></TextBlock>
+        <TextBlock Text="ИНН" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Grid.Row="4" Grid.Column="2" Margin="10"></TextBlock>
+
+        <TextBox Text="{Binding PartnerID}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="0" Grid.Column="1" Margin="10" IsEnabled="False" Width="50"></TextBox>
+
+        <ComboBox Name="PartnerTypeCB"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="2" Grid.Column="1" Margin="10" Width="200" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding PartnerTypeName}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Text="{Binding PartnerCompanyName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="1" Grid.Column="1" Margin="10" Width="200"></TextBox>
+        <TextBox Text="{Binding PartnerEmail}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="3" Grid.Column="3" Margin="10" Width="200"></TextBox>
+        <TextBox Text="{Binding PartnerDirectorFullname}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="1" Grid.Column="3" Margin="10" Width="200"></TextBox>
+
+        <TextBox Text="{Binding PartnerPhoneNumber }" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="2" Grid.Column="3" Margin="10" Width="200"></TextBox>
+        <TextBox Text="{Binding PartnerLegalAddress}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="4" Grid.Column="1" Margin="10" Width="300"></TextBox>
+        <TextBox Text="{Binding PartnerINN}" Name="INNTextBox" TextChanged="INNTextBox_TextChanged" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="4" Grid.Column="3" Margin="10" Width="200"></TextBox>
+
+        <TextBox Text="{Binding PartnerRating}" Name="RatingTextBox" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Grid.Row="3" Grid.Column="1" Margin="10" Width="100"></TextBox>
+
+        <Button Name="SaveButton" Content="Сохранить" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveButton_Click" Grid.ColumnSpan="4" Grid.Row="5"></Button>
+        
+    </Grid>
+</Page>

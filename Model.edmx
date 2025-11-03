@@ -40,7 +40,7 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductArticul" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="PartnerID" Type="int" Nullable="false" />
           <Property Name="OrderProductQuantity" Type="int" Nullable="false" />
           <Property Name="OrderSaleDate" Type="date" Nullable="false" />
@@ -69,21 +69,20 @@
         </EntityType>
         <EntityType Name="ProductMaterial">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductArticul" />
             <PropertyRef Name="MaterialID" />
           </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductArticul" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="MaterialID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductArticul" />
           </Key>
-          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductArticul" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="ProductTypeID" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ProductArticul" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ProductMinimalCostForPartner" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ProductDescription" Type="varchar(max)" Nullable="false" />
           <Property Name="ProductImage" Type="varchar(max)" Nullable="false" />
@@ -131,6 +130,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductArticul" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductArticul" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartnerProducts_Partners">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -140,18 +151,6 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="PartnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerProducts_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,10 +183,10 @@
           <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductArticul" />
             </Principal>
             <Dependent Role="ProductMaterial">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductArticul" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -221,12 +220,12 @@
             <End Role="MaterialUnits" EntitySet="MaterialUnits" />
             <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_Partners" Association="Self.FK_PartnerProducts_Partners">
-            <End Role="Partners" EntitySet="Partners" />
+          <AssociationSet Name="FK_Orders_Products" Association="Self.FK_Orders_Products">
+            <End Role="Products" EntitySet="Products" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_Products" Association="Self.FK_PartnerProducts_Products">
-            <End Role="Products" EntitySet="Products" />
+          <AssociationSet Name="FK_PartnerProducts_Partners" Association="Self.FK_PartnerProducts_Partners">
+            <End Role="Partners" EntitySet="Partners" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Partners_PartnerType" Association="Self.FK_Partners_PartnerType">
@@ -291,12 +290,12 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductArticul" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PartnerID" Type="Int32" Nullable="false" />
           <Property Name="OrderProductQuantity" Type="Int32" Nullable="false" />
           <Property Name="OrderSaleDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Orders_Products" FromRole="Orders" ToRole="Products" />
           <NavigationProperty Name="Partners" Relationship="Self.FK_PartnerProducts_Partners" FromRole="Orders" ToRole="Partners" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_PartnerProducts_Products" FromRole="Orders" ToRole="Products" />
         </EntityType>
         <EntityType Name="Partners">
           <Key>
@@ -325,10 +324,10 @@
         </EntityType>
         <EntityType Name="ProductMaterial">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductArticul" />
             <PropertyRef Name="MaterialID" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductArticul" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaterialID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Materials" Relationship="Self.FK_ProductMaterial_Materials" FromRole="ProductMaterial" ToRole="Materials" />
@@ -336,12 +335,11 @@
         </EntityType>
         <EntityType Name="Products">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductArticul" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductArticul" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProductArticul" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProductMinimalCostForPartner" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
@@ -356,7 +354,7 @@
           <Property Name="ProductPrimeCost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ProductManufactoryNumber" Type="Int32" Nullable="false" />
           <Property Name="ProductWorkersOnFactoryCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_PartnerProducts_Products" FromRole="Products" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Products" FromRole="Products" ToRole="Orders" />
           <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Products" FromRole="Products" ToRole="ProductMaterial" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_Products_ProductType" FromRole="Products" ToRole="ProductType" />
         </EntityType>
@@ -405,6 +403,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductArticul" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductArticul" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartnerProducts_Partners">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -414,18 +424,6 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="PartnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerProducts_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -446,10 +444,10 @@
           <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductArticul" />
             </Principal>
             <Dependent Role="ProductMaterial">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductArticul" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -487,12 +485,12 @@
             <End Role="Materials" EntitySet="Materials" />
             <End Role="ProductMaterial" EntitySet="ProductMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_Partners" Association="Self.FK_PartnerProducts_Partners">
-            <End Role="Partners" EntitySet="Partners" />
+          <AssociationSet Name="FK_Orders_Products" Association="Self.FK_Orders_Products">
+            <End Role="Products" EntitySet="Products" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartnerProducts_Products" Association="Self.FK_PartnerProducts_Products">
-            <End Role="Products" EntitySet="Products" />
+          <AssociationSet Name="FK_PartnerProducts_Partners" Association="Self.FK_PartnerProducts_Partners">
+            <End Role="Partners" EntitySet="Partners" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Partners_PartnerType" Association="Self.FK_Partners_PartnerType">
@@ -551,7 +549,7 @@
             <EntityTypeMapping TypeName="SalimgareevaMasterPolModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductArticul" ColumnName="ProductArticul" />
                 <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
                 <ScalarProperty Name="OrderProductQuantity" ColumnName="OrderProductQuantity" />
                 <ScalarProperty Name="OrderSaleDate" ColumnName="OrderSaleDate" />
@@ -585,7 +583,7 @@
           <EntitySetMapping Name="ProductMaterial">
             <EntityTypeMapping TypeName="SalimgareevaMasterPolModel.ProductMaterial">
               <MappingFragment StoreEntitySet="ProductMaterial">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductArticul" ColumnName="ProductArticul" />
                 <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
@@ -594,10 +592,9 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="SalimgareevaMasterPolModel.Products">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductArticul" ColumnName="ProductArticul" />
                 <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductArticul" ColumnName="ProductArticul" />
                 <ScalarProperty Name="ProductMinimalCostForPartner" ColumnName="ProductMinimalCostForPartner" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
                 <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
