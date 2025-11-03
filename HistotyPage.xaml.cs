@@ -20,9 +20,13 @@ namespace MasterPolSalimgareeva
     /// </summary>
     public partial class HistotyPage : Page
     {
-        public HistotyPage()
+        public HistotyPage(Partners selectedPartner)
         {
             InitializeComponent();
+
+            HistoryListView.ItemsSource = SalimgareevaMasterPolEntities.GetContext().Orders.Where(o => o.PartnerID == selectedPartner.PartnerID).OrderBy(o => o.OrderSaleDate).ToList();
+            PartnerNameTB.Text = selectedPartner.PartnerCompanyName;
+            PartnerTypeNameTB.Text = selectedPartner.PartnerType.PartnerTypeName;
         }
     }
 }

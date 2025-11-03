@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:MasterPolSalimgareeva"
         mc:Ignorable="d"
         Title="SalimgareevaMasterPol" Height="450" Width="800" FontFamily="Segoe UI" Icon="Images/Мастер пол.ico">
-    <Grid>
+    <Grid Background="#F4E8D3">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Image Source="Images/Мастер пол.png" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"></Image>
         <TextBlock Text="Мастер Пол" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>

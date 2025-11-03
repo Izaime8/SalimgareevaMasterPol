@@ -6,9 +6,48 @@
       xmlns:local="clr-namespace:MasterPolSalimgareeva"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HistotyPage">
+      Title="HistotyPage" FontFamily="Segoe UI" >
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Реализованная продукция партнера: " FontSize="25" ></TextBlock>
+            <TextBlock Name="PartnerTypeNameTB" FontSize="25"  ></TextBlock>
+            <TextBlock Text=" | " FontSize="25"  ></TextBlock>
+            <TextBlock Name="PartnerNameTB" FontSize="25"  ></TextBlock>
+
+        </StackPanel>
+        <ListView Name="HistoryListView" Grid.Row="1" HorizontalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="1000"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Margin="5" Text="Название: " Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="25"></TextBlock>
+                            <TextBlock Margin="5" Text="Количество: " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="20"></TextBlock>
+                            <TextBlock Margin="5" Text="Дата продажи: " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontSize="20"></TextBlock>
+                            <TextBlock Margin="5" Text="{Binding Products.ProductName}" Grid.Row="0" Grid.Column="1" FontSize="25"></TextBlock>
+                            <TextBlock Margin="5" Text="{Binding OrderProductQuantity}" Grid.Row="1" FontSize="20" Grid.Column="1"></TextBlock>
+                            <TextBlock Margin="5" Text="{Binding OrderSaleDateStr}" Grid.Row="2" FontSize="20" Grid.Column="1"></TextBlock>
+
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </Page>

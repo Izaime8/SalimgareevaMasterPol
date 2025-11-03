@@ -19,7 +19,16 @@ namespace MasterPolSalimgareeva
         public int PartnerID { get; set; }
         public int OrderProductQuantity { get; set; }
         public System.DateTime OrderSaleDate { get; set; }
-    
+
+        public string OrderSaleDateStr
+        {
+            get
+            {
+                return this.OrderSaleDate.ToString("d");
+            }
+        }
+
+
         public virtual Products Products { get; set; }
         public virtual Partners Partners { get; set; }
     }

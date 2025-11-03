@@ -47,7 +47,7 @@ namespace MasterPolSalimgareeva
 
         private void ViewHistotyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Manager.MainFrame.Navigate(new HistotyPage((sender as Button).DataContext as Partners));
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
